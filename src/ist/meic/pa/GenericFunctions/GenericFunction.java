@@ -9,7 +9,8 @@ public class GenericFunction {
 	GFMethod gfm = new GFMethod ();
 	ArrayList<GFMethod> beforegfmlist = new ArrayList<GFMethod>();
 	ArrayList<GFMethod> aftergfmlist = new ArrayList<GFMethod>();
-
+	ArrayList<Class> callparameters = new ArrayList<Class>();
+	
 	
 	public GenericFunction(String name){
 
@@ -18,6 +19,12 @@ public class GenericFunction {
 	}
 
 
+	public ArrayList<Class> getCallParameters(){
+		return callparameters;
+		
+	}
+	
+	
 	public GFMethod getGfm() {
 		return gfm;
 	}
@@ -40,8 +47,8 @@ public class GenericFunction {
 
 	public void addMethod (GFMethod gfm) throws ClassNotFoundException {
 
-		ArrayList<Class> callparameters = getCallParameters(gfm);
-
+		ArrayList<Class> callparameters = getCallParameters();
+	
 
 	}
 
@@ -61,7 +68,7 @@ public class GenericFunction {
 
 	public int call(Object... o){
 
-
+		
 		return 0;
 	}
 	
@@ -69,7 +76,7 @@ public class GenericFunction {
 	
 	
 
-	private ArrayList<Class> getCallParameters(GFMethod gfm) throws ClassNotFoundException {
+	private void getCallParameters(GFMethod gfm) throws ClassNotFoundException {
 
 		ArrayList<String> paramclass = new ArrayList<String>();
 		ArrayList<Class> classesinparametersincall = new ArrayList<Class>();
@@ -91,13 +98,23 @@ public class GenericFunction {
 
 		for(String s: paramclass){
 			String[] s1 = s.split(" ");
-
+			System.out.println(Class.forName(s1[0])); //class [[Ljava.lang.object /n interface java.util.List
+			
 			classesinparametersincall.add(Class.forName(s1[0]));
 
 
 		}
-
-		return classesinparametersincall;
+		
+		//if(isMoreSpecific(classesinparametersincall, callparameters)) TODO 
+		this.callparameters = classesinparametersincall;
+		//return classesinparametersincall;
+	}
+	
+	
+	public boolean isMoreSpecific(ArrayList<Class> tocompare, ArrayList<Class> base){
+		//TODO check if arguments are more specific, true if tocompare is more specific than base, false otherwise
+		
+		return false;
 	}
 
 }
