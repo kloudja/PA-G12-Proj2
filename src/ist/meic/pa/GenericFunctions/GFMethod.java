@@ -3,7 +3,7 @@ package ist.meic.pa.GenericFunctions;
 public class GFMethod {
 
 	
-	public void call(){
+	public void call(Object o){
 		
 		
 		
