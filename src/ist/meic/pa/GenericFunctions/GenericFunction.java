@@ -10,8 +10,8 @@ public class GenericFunction {
 	ArrayList<GFMethod> beforegfmlist = new ArrayList<GFMethod>();
 	ArrayList<GFMethod> aftergfmlist = new ArrayList<GFMethod>();
 	ArrayList<Class> callparameters = new ArrayList<Class>();
-	
-	
+
+
 	public GenericFunction(String name){
 
 		this.name = name;
@@ -21,10 +21,10 @@ public class GenericFunction {
 
 	public ArrayList<Class> getCallParameters(){
 		return callparameters;
-		
+
 	}
-	
-	
+
+
 	public GFMethod getGfm() {
 		return gfm;
 	}
@@ -40,7 +40,7 @@ public class GenericFunction {
 	String name;
 
 
-	
+
 	public String getName(){
 		return name;
 	}
@@ -48,33 +48,33 @@ public class GenericFunction {
 	public void addMethod (GFMethod gfm) throws ClassNotFoundException {
 
 		ArrayList<Class> callparameters = getCallParameters();
-	
-
-	}
-
-
-
-
-	public void addBeforeMethod(GFMethod gfm){
 
 
 	}
 
 
-	public void addAfterMethod(GFMethod gfm){
+
+
+	public void addBeforeMethod(GFMethod gfm){ //adds them all, but output is in most-specific-first order
+
+
+	}
+
+
+	public void addAfterMethod(GFMethod gfm){ //adds them all, but output is in most-specific-first order
 
 
 	}
 
 	public int call(Object... o){
 
-		
+
 		return 0;
 	}
-	
-	
-	
-	
+
+
+
+
 
 	private void getCallParameters(GFMethod gfm) throws ClassNotFoundException {
 
@@ -99,22 +99,43 @@ public class GenericFunction {
 		for(String s: paramclass){
 			String[] s1 = s.split(" ");
 			System.out.println(Class.forName(s1[0])); //class [[Ljava.lang.object /n interface java.util.List
-			
+
 			classesinparametersincall.add(Class.forName(s1[0]));
 
 
 		}
-		
+
 		//if(isMoreSpecific(classesinparametersincall, callparameters)) TODO 
 		this.callparameters = classesinparametersincall;
 		//return classesinparametersincall;
 	}
-	
-	
+
+
 	public boolean isMoreSpecific(ArrayList<Class> tocompare, ArrayList<Class> base){
 		//TODO check if arguments are more specific, true if tocompare is more specific than base, false otherwise
-		
+
 		return false;
 	}
 
+	public void moreSpecific(Class c1, Class c2){
+
+		boolean foundsuper = false;
+		Class superc1 = c1.getSuperclass();
+		
+		if(c1 != c2 ) //TODO add case for [L, where each [ is the arity of an array ex: [[L is a matrix, [L is an array
+			while(superc1 != null){
+				if (superc1 == c2)	foundsuper = true;
+				superc1 = superc1.getSuperclass();
+			}
+		
+		if(foundsuper)
+			System.out.println("found " + c2 +"as a superclass of " + c1);
+		
+			//return 0;
+		 //return 1;
+
+
+
 }
+	}
+
