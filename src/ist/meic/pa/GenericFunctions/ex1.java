@@ -40,7 +40,7 @@ public class ex1 {
 		println(explain.call("Hi"));
 		println(explain.call(3.14159));
 		*/
-		String x[] = {"1"};
+		String x[][][] = {{{"1"}}};
 		System.out.println(x.getClass());
 		System.out.println(x.getClass().getSuperclass());
 		System.out.println(x.getClass().getSuperclass().getSuperclass());
@@ -54,9 +54,28 @@ public class ex1 {
 		
 		
 		System.out.println(add.call(new Object[] { 1, 2, 3 }, Arrays.asList(4, 5, 6)));
-		
+		int countbarra1 = 0;
+		int countbarra2 = 0;
 		
 		add.moreSpecific(Class.forName("java.lang.Float") , Class.forName("java.lang.Number"));
+		add.moreSpecific(x.getClass() , Class.forName("java.lang.Number"));
+		System.out.println(x.toString().contains("["));
+		
+		for(int i = 0; i < x.toString().length();  i++)
+			if(x.toString().charAt(i) == '[')
+				countbarra1++;
+		
+		String s = x.toString().replace("[", "");
+		System.out.println(s);
+		
+		if(s.startsWith("L")){
+			String k = s.replace("Lj", "j");
+			String[] k2 = k.split(";");
+		System.out.println(k2[0]);
+		}
+		
+		System.out.println(countbarra1);
+		
 	}
 	
 	
