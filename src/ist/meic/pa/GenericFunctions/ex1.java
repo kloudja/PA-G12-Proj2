@@ -40,7 +40,8 @@ public class ex1 {
 		println(explain.call("Hi"));
 		println(explain.call(3.14159));
 		*/
-		String x[][][] = {{{"1"}}};
+		String[][][] x = {{{"1"}}};
+		String[][] y = {{"2"}};
 		System.out.println(x.getClass());
 		System.out.println(x.getClass().getSuperclass());
 		System.out.println(x.getClass().getSuperclass().getSuperclass());
@@ -53,30 +54,29 @@ public class ex1 {
 			}});
 		
 		
-		System.out.println(add.call(new Object[] { 1, 2, 3 }, Arrays.asList(4, 5, 6)));
-		int countbarra1 = 0;
-		int countbarra2 = 0;
+		//System.out.println(add.call(new Object[] { 1, 2, 3 }, Arrays.asList(4, 5, 6)));
+		int countbarra1 = GenericFunction.countBards(x.getClass());
+		int countbarra2 = GenericFunction.countBards(Class.forName("java.lang.Number"));
 		
+		System.out.println("barra1 " + countbarra1);
+		System.out.println("barra2 " + countbarra2);
 		add.moreSpecific(Class.forName("java.lang.Float") , Class.forName("java.lang.Number"));
 		add.moreSpecific(x.getClass() , Class.forName("java.lang.Number"));
-		System.out.println(x.toString().contains("["));
 		
-		for(int i = 0; i < x.toString().length();  i++)
-			if(x.toString().charAt(i) == '[')
-				countbarra1++;
+		
 		
 		String s = x.toString().replace("[", "");
-		System.out.println(s);
 		
-		if(s.startsWith("L")){
-			String k = s.replace("Lj", "j");
-			String[] k2 = k.split(";");
-		System.out.println(k2[0]);
-		}
+		GenericFunction.getSimpleClassName(s);
 		
-		System.out.println(countbarra1);
-		
+		Class c = Class.forName("java.lang.String");
+		System.out.println(x.getClass());
+	
+		System.out.println(GenericFunction.getSimpleClassName("class [[Ljava.lang.String;@2938423"));
+		System.out.println(add.moreSpecific(y.getClass(), x.getClass()));
 	}
+
+	
 	
 	
 
