@@ -3,6 +3,11 @@ package ist.meic.pa.GenericFunctions;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 
+//ordering is done left to right, so (Integer, Number) is more specific than (Number, Integer)
+//in case of tie, the next class pair is compared ex: (Integer, Number), (Integer, Integer). First the two Integers tie
+//then, Integer in the second wins over Number in the first
+//in case of a perfect tie ex:(Integer, Integer), (Integer, Integer), the newest one replaces the previous
+
 public class GenericFunction {
 
 	GFMethod gfm = new GFMethod();
@@ -41,7 +46,7 @@ public class GenericFunction {
 
 	public void addMethod(GFMethod gfm) throws ClassNotFoundException {
 
-		ArrayList<Class> callparameters = getCallParameters();
+		//ArrayList<Class> callparameters = getCallParameters(gfm);
 		// this.gfm = mostSpecific(gfm, this.gfm);
 
 	}
