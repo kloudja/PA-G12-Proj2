@@ -6,7 +6,7 @@ import java.util.ArrayList;
 //ordering is done left to right, so (Integer, Number) is more specific than (Number, Integer)
 //in case of tie, the next class pair is compared ex: (Integer, Number), (Integer, Integer). First the two Integers tie
 //then, Integer in the second wins over Number in the first
-//in case of a perfect tie ex:(Integer, Integer), (Integer, Integer), the newest one replaces the previous
+//in case of a perfect tie ex:(Integer, Integer), (Integer, Integer), the newest one replaces the previous and is considered more specific
 
 public class GenericFunction {
 
@@ -87,39 +87,56 @@ public class GenericFunction {
 		for (String s : paramclass) {
 			String[] s1 = s.split(" ");
 			System.out.println(Class.forName(s1[0])); // class
-														// [[Ljava.lang.object
-														// /n interface
-														// java.util.List
+			// [[Ljava.lang.object
+			// /n interface
+			// java.util.List
 
 			classesinparametersincall.add(Class.forName(s1[0]));
 
 		}
 
-		// if(isMoreSpecific(classesinparametersincall, callparameters)) TODO
+		// if(moreSpecificClassList(classesinparametersincall, callparameters)) TODO
 		this.callparameters = classesinparametersincall;
 		// return classesinparametersincall;
 	}
 
-	public boolean isMoreSpecific(ArrayList<Class> tocompare,
-			ArrayList<Class> base) {
-		// TODO check if arguments are more specific, true if tocompare is more
-		// specific than base, false otherwise
+	public ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
+		//check which list arguments are more specific from left to, returns the more specific list, or tocompare if all elements are equally specific
+		//TODO this is untested
+		
+		if(tocompare.size() != base.size()) 
+			throw new IllegalArgumentException("Error: number of parameters does not match");
 
-		return false;
-	}
+		
+		for(int i = 0; i < tocompare.size(); i++){
+			
+			int j = moreSpecificClass(tocompare.get(i), base.get(i));
+			
+			if(j == -1) continue; //in case of ties goes to the next loop iteration
+			if(j == 0) return tocompare;
+			if(j == 1) return base;			
+				
+			}
+			
+		return tocompare;
+		}
+		
+		
+	
 
-	public Class moreSpecific(Class c1, Class c2) {
-
+	public int moreSpecificClass(Class c1, Class c2) { //returns -1 if c1 and c2 are the same class, 0 if c1 is more specific, and 1 if c2 is more specific
+ 
+		if(c1 == c2) return -1;
+		
 		int barsc1 = countBards(c1);
 		int barsc2 = countBards(c2);
 
 		boolean foundsuper = false;
 		Class superc1 = c1.getSuperclass();
 
-		if (c1 != c2) // TODO add case for [L, where each [ is the arity of an
-						// array ex: [[L is a matrix, [L is an array
-			while (superc1 != null) {
-				if (superc1 == c2)
+		if (c1 != c2) 
+			while (superc1 != null) { 
+				if (getSimpleClassName(superc1.toString()).equals(getSimpleClassName(c2.toString())))
 					foundsuper = true;
 				superc1 = superc1.getSuperclass();
 			}
@@ -127,12 +144,12 @@ public class GenericFunction {
 		if (foundsuper || (barsc1 < barsc2 && getSimpleClassName(c1.toString()).equals(getSimpleClassName(c2.toString())))){
 			System.out.println("found " + c2 + " as a superclass of " + c1
 					+ " , so " + c1 + " is more specific");
-			return c1;
+			return 0;
 		}
 		else
 			System.out.println("could not find " + c2 + " as superclass of "
 					+ c1 + ", " + c1 + " is not more specific than " + c2);
-		return c2;
+		return 1;
 
 	}
 

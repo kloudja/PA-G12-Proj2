@@ -1,6 +1,7 @@
 package ist.meic.pa.GenericFunctions;
 
 import java.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ex1 {
 		println(explain.call("Hi"));
 		println(explain.call(3.14159));
 		*/
-		String[][][] x = {{{"1"}}};
+		Object[][][] x = {{{"1"}}};
 		String[][] y = {{"2"}};
 		System.out.println(x.getClass());
 		System.out.println(x.getClass().getSuperclass());
@@ -60,8 +61,8 @@ public class ex1 {
 		
 		System.out.println("barra1 " + countbarra1);
 		System.out.println("barra2 " + countbarra2);
-		add.moreSpecific(Class.forName("java.lang.Float") , Class.forName("java.lang.Number"));
-		add.moreSpecific(x.getClass() , Class.forName("java.lang.Number"));
+		add.moreSpecificClass(Class.forName("java.lang.Float") , Class.forName("java.lang.Number"));
+		add.moreSpecificClass(x.getClass() , Class.forName("java.lang.Number"));
 		
 		
 		
@@ -71,9 +72,19 @@ public class ex1 {
 		
 		Class c = Class.forName("java.lang.String");
 		System.out.println(x.getClass());
-	
-		System.out.println(GenericFunction.getSimpleClassName("class [[Ljava.lang.String;@2938423"));
-		System.out.println(add.moreSpecific(y.getClass(), x.getClass()));
+		String x2 ="abc123";
+		Class c2 = Class.forName("java.lang.String");
+		//System.out.println(GenericFunction.getSimpleClassName("class [[Ljava.lang.String;@2938423"));
+		//System.out.println(add.moreSpecificClass(y.getClass(), x.getClass()));
+		//System.out.println( add.moreSpecificClass(c, c2));
+		System.out.println(x2.getClass().getSuperclass());
+		List j = new ArrayList();
+		System.out.println(GenericFunction.getSimpleClassName(x.toString()));
+		System.out.println(x2.getClass().toString());
+		
+		System.out.println();
+		
+		System.out.println(j.getClass());
 	}
 
 	
