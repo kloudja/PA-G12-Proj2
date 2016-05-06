@@ -14,6 +14,9 @@ public class GenericFunction {
 	ArrayList<GFMethod> beforegfmlist = new ArrayList<GFMethod>();
 	ArrayList<GFMethod> aftergfmlist = new ArrayList<GFMethod>();
 	ArrayList<Class> callparameters = new ArrayList<Class>();
+	String name;
+
+	
 
 	public GenericFunction(String name) {
 
@@ -29,6 +32,10 @@ public class GenericFunction {
 	public GFMethod getGfm() {
 		return gfm;
 	}
+	
+	public void setGfm(GFMethod gfm){
+		this.gfm = gfm;
+	}
 
 	public ArrayList<GFMethod> getBeforegfmlist() {
 		return beforegfmlist;
@@ -38,18 +45,29 @@ public class GenericFunction {
 		return aftergfmlist;
 	}
 
-	String name;
-
+	
 	public String getName() {
 		return name;
 	}
 
-	public void addMethod(GFMethod gfm) throws ClassNotFoundException {
+	public void addMethod(GFMethod gfmnew) throws ClassNotFoundException {
 
-		//ArrayList<Class> callparameters = getCallParameters(gfm);
-		// this.gfm = mostSpecific(gfm, this.gfm);
-
+		
+	ArrayList<Class> callparameters = getCallParameters(gfmnew);
+	ArrayList<Class> gfmcallparameters = getCallParameters(this.gfm);
+	
+	if(gfmcallparameters.size() == 0)
+		setGfm(gfmnew);
+	
+	else{
+		
+		if(moreSpecificClassList(callparameters, gfmcallparameters) == callparameters) setGfm(gfmnew);
+		
 	}
+	
+	
+	}
+	
 
 	public void addBeforeMethod(GFMethod gfm) {
 
@@ -64,7 +82,7 @@ public class GenericFunction {
 		return 0;
 	}
 
-	private void getCallParameters(GFMethod gfm) throws ClassNotFoundException {
+	ArrayList<Class> getCallParameters(GFMethod gfm) throws ClassNotFoundException {
 
 		ArrayList<String> paramclass = new ArrayList<String>();
 		ArrayList<Class> classesinparametersincall = new ArrayList<Class>();
@@ -97,13 +115,14 @@ public class GenericFunction {
 
 		// if(moreSpecificClassList(classesinparametersincall, callparameters)) TODO
 		this.callparameters = classesinparametersincall;
-		// return classesinparametersincall;
+		 return classesinparametersincall;
 	}
 
 	public ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
 		//check which list arguments are more specific from left to right, returns the more specific list, or tocompare if all elements are equally specific
 		//TODO this is untested
-		
+		System.out.println(tocompare.size());
+		System.out.println(base.size());
 		if(tocompare.size() != base.size()) 
 			throw new IllegalArgumentException("Error: number of parameters does not match");
 
@@ -117,7 +136,7 @@ public class GenericFunction {
 			if(j == 1) return base;			
 				
 			}
-			
+			System.out.println("All slots tied");
 		return tocompare;
 		}
 		

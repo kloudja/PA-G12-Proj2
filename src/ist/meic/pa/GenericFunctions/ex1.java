@@ -10,7 +10,7 @@ public class ex1 {
 	
 	public static void main (String[] args) throws ClassNotFoundException{
 		
-		final GenericFunction add = new GenericFunction("add");
+		 GenericFunction add = new GenericFunction("add");
 		
 	/*	explain.addMethod(new GFMethod() {
 			Object call(Integer entity) {
@@ -47,12 +47,12 @@ public class ex1 {
 		System.out.println(x.getClass().getSuperclass());
 		System.out.println(x.getClass().getSuperclass().getSuperclass());
 		//System.out.println(x.getClass().getSuperclass().getSuperclass().getSuperclass());
-		
-		add.addMethod(new GFMethod() {
-			Object call(Object[][] a, List b) {            			//[[Ljava.lang.Object; call
-                    System.out.println(b.size());                                        	//	java.util.List call
-			return add.call(a, b.toArray());
-			}});
+		System.out.println("ain "+ add.getCallParameters(add.getGfm()));
+		//add.addMethod(new GFMethod() {
+		//	Object call(Object[][] a, List b) {            			//[[Ljava.lang.Object; call
+          //          System.out.println(b.size());                                        	//	java.util.List call
+		//	return add.call(a, b.toArray());
+		//	}});
 		
 		
 		//System.out.println(add.call(new Object[] { 1, 2, 3 }, Arrays.asList(4, 5, 6)));
@@ -82,15 +82,41 @@ public class ex1 {
 		System.out.println(GenericFunction.getSimpleClassName(x.toString()));
 		System.out.println(x2.getClass().toString());
 		
-		System.out.println();
+		
 		
 		ArrayList<Class> cc1 = new ArrayList<Class>();
 		cc1.add(c);
 		cc1.add(new Object().getClass()); //normal string
 		ArrayList<Class> cc2 = new ArrayList<Class>();
 		cc2.add(c);
-		cc2.add(x.getClass()); //array of matrix of string
+		cc2.add(new Object().getClass()); //array of matrix of string
 		System.out.println(add.moreSpecificClassList(cc1, cc2));
+		
+		System.out.println();
+		
+		GFMethod gfg = new  GFMethod() {
+			Object call(Object o1, Object o2) {
+				System.out.printf("LUL");
+				return "";
+				}};
+		System.out.println(gfg);
+		add.addMethod(gfg);
+		
+			System.out.println(add.getGfm());	
+			 add.addMethod(new GFMethod() {
+					Object call(Object o1, String o2) {
+						System.out.printf("LUL2");
+						return "";
+						}});
+			 
+			 System.out.println(add.getGfm());
+			 
+			 add.addMethod(new GFMethod() {
+					Object call(Object o1, String o2) {
+						System.out.printf("LUL2");
+						return "";
+						}});
+				System.out.println(add.getGfm());
 	}
 
 	

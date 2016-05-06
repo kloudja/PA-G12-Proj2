@@ -2,12 +2,13 @@ package ist.meic.pa.GenericFunctions;
 
 public class GFMethod {
 
-	
-	public void call(Object... o){
-		
-		
-		
-		
-		
+	@Override
+	public String toString() {
+		return "GFMethod [], hashcode " +this.hashCode();
 	}
+
+	
+	
+	
+	
 }
