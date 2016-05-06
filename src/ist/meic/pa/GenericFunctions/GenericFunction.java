@@ -8,7 +8,7 @@ import java.util.ArrayList;
 //then, Integer in the second wins over Number in the first
 //in case of a perfect tie ex:(Integer, Integer), (Integer, Integer), the newest one replaces the previous and is considered more specific
 
-public class GenericFunction {
+public class GenericFunction implements Comparable<ArrayList<Class>> {
 
 	GFMethod gfm = new GFMethod();
 	ArrayList<GFMethod> beforegfmlist = new ArrayList<GFMethod>();
@@ -16,7 +16,7 @@ public class GenericFunction {
 	ArrayList<Class> callparameters = new ArrayList<Class>();
 	String name;
 
-	
+
 
 	public GenericFunction(String name) {
 
@@ -32,7 +32,7 @@ public class GenericFunction {
 	public GFMethod getGfm() {
 		return gfm;
 	}
-	
+
 	public void setGfm(GFMethod gfm){
 		this.gfm = gfm;
 	}
@@ -45,35 +45,41 @@ public class GenericFunction {
 		return aftergfmlist;
 	}
 
-	
+
 	public String getName() {
 		return name;
 	}
 
 	public void addMethod(GFMethod gfmnew) throws ClassNotFoundException {
 
-		
-	ArrayList<Class> callparameters = getCallParameters(gfmnew);
-	ArrayList<Class> gfmcallparameters = getCallParameters(this.gfm);
-	
-	if(gfmcallparameters.size() == 0)
-		setGfm(gfmnew);
-	
-	else{
-		
-		if(moreSpecificClassList(callparameters, gfmcallparameters) == callparameters) setGfm(gfmnew);
-		
-	}
-	
-	
-	}
-	
 
-	public void addBeforeMethod(GFMethod gfm) {
+		ArrayList<Class> callparameters = getCallParameters(gfmnew);
+		ArrayList<Class> gfmcallparameters = getCallParameters(this.gfm);
+
+		if(gfmcallparameters.size() == 0)
+			setGfm(gfmnew);
+
+		else{
+
+			if(moreSpecificClassList(callparameters, gfmcallparameters) == callparameters) setGfm(gfmnew);
+
+		}
+
 
 	}
 
-	public void addAfterMethod(GFMethod gfm) {
+
+	public void addBeforeMethod(GFMethod gfm) throws ClassNotFoundException {
+
+		addOrReplaceOnList(beforegfmlist, gfm);
+
+	}
+
+
+
+	public void addAfterMethod(GFMethod gfm) throws ClassNotFoundException {
+		
+		addOrReplaceOnList(aftergfmlist, gfm);
 
 	}
 
@@ -82,7 +88,7 @@ public class GenericFunction {
 		return 0;
 	}
 
-	ArrayList<Class> getCallParameters(GFMethod gfm) throws ClassNotFoundException {
+	protected static ArrayList<Class> getCallParameters(GFMethod gfm) throws ClassNotFoundException {
 
 		ArrayList<String> paramclass = new ArrayList<String>();
 		ArrayList<Class> classesinparametersincall = new ArrayList<Class>();
@@ -114,8 +120,8 @@ public class GenericFunction {
 		}
 
 		// if(moreSpecificClassList(classesinparametersincall, callparameters)) TODO
-		this.callparameters = classesinparametersincall;
-		 return classesinparametersincall;
+
+		return classesinparametersincall;
 	}
 
 	public ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
@@ -126,27 +132,28 @@ public class GenericFunction {
 		if(tocompare.size() != base.size()) 
 			throw new IllegalArgumentException("Error: number of parameters does not match");
 
-		
+
 		for(int i = 0; i < tocompare.size(); i++){
-			
+
 			int j = moreSpecificClass(tocompare.get(i), base.get(i));
-			
+
 			if(j == -1){ System.out.println("tie at slot " +i); continue; } //in case of ties goes to the next loop iteration
 			if(j == 0) return tocompare;
 			if(j == 1) return base;			
-				
-			}
-			System.out.println("All slots tied");
-		return tocompare;
+
 		}
-		
-		
-	
+		System.out.println("All slots tied");
+		base = tocompare;
+		return tocompare;
+	}
+
+
+
 
 	public int moreSpecificClass(Class c1, Class c2) { //returns -1 if c1 and c2 are the same class, 0 if c1 is more specific, and 1 if c2 is more specific
- 
+
 		if(c1 == c2) return -1;
-		
+
 		int barsc1 = countBards(c1);
 		int barsc2 = countBards(c2);
 
@@ -192,6 +199,37 @@ public class GenericFunction {
 		String[] k4 = k3.split(";");
 		return k4[0];
 
+	}
+
+	public static void addOrReplaceOnList(ArrayList<GFMethod> gfmlist, GFMethod gfm) throws ClassNotFoundException{
+
+		if(gfmlist.size() == 0){
+			gfmlist.add(gfm);
+			return;
+		}
+		boolean foundequivalent = false;
+		ArrayList<Class> callparameters = getCallParameters(gfm);
+
+		for(int i = 0; i< gfmlist.size(); i++){
+
+
+			if(getCallParameters(gfmlist.get(i)).equals(callparameters)){
+				foundequivalent = true; 
+				gfmlist.set(i, gfm);
+				return;
+			}
+			gfmlist.add(gfm);
+		}
+
+
+	}
+
+
+
+	@Override
+	public int compareTo(ArrayList<Class> o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -117,10 +117,37 @@ public class ex1 {
 						return "";
 						}});
 				System.out.println(add.getGfm());
+				System.out.println();
+				
+				ArrayList<Class> alc1 = new ArrayList<Class>();
+				alc1.add(Class.forName("java.lang.Object"));
+				ArrayList<Class> alc2 = new ArrayList<Class>();
+				alc2.add(Class.forName("java.lang.Object"));
+				
+				System.out.println(add.getAftergfmlist().size());
+				/*GFMethod gfg = new  GFMethod() {
+			Object call(Object o1, Object o2) {
+				System.out.printf("LUL");
+				return "";
+				}};*/
+				add.addAfterMethod(gfg);
+				System.out.println(add.getAftergfmlist().get(0));
+				
+				GFMethod gfg2 = new GFMethod(){
+					Object call(Object o1, String o2) {
+						System.out.printf("LUL");
+						return "";
+						}};
+						
+						add.addAfterMethod(gfg2);
+						System.out.println(add.getAftergfmlist().get(0));
+						System.out.println(add.getAftergfmlist().get(1));
+						System.out.println(add.getAftergfmlist().size());
+				}
 	}
 
 	
 	
 	
 
-}
+
