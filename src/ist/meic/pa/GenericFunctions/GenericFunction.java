@@ -101,7 +101,7 @@ public class GenericFunction {
 	}
 
 	public ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
-		//check which list arguments are more specific from left to, returns the more specific list, or tocompare if all elements are equally specific
+		//check which list arguments are more specific from left to right, returns the more specific list, or tocompare if all elements are equally specific
 		//TODO this is untested
 		
 		if(tocompare.size() != base.size()) 
@@ -112,7 +112,7 @@ public class GenericFunction {
 			
 			int j = moreSpecificClass(tocompare.get(i), base.get(i));
 			
-			if(j == -1) continue; //in case of ties goes to the next loop iteration
+			if(j == -1){ System.out.println("tie at slot " +i); continue; } //in case of ties goes to the next loop iteration
 			if(j == 0) return tocompare;
 			if(j == 1) return base;			
 				

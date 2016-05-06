@@ -41,7 +41,7 @@ public class ex1 {
 		println(explain.call("Hi"));
 		println(explain.call(3.14159));
 		*/
-		Object[][][] x = {{{"1"}}};
+		String[][][] x = {{{"1"}}};
 		String[][] y = {{"2"}};
 		System.out.println(x.getClass());
 		System.out.println(x.getClass().getSuperclass());
@@ -70,7 +70,7 @@ public class ex1 {
 		
 		GenericFunction.getSimpleClassName(s);
 		
-		Class c = Class.forName("java.lang.String");
+		Class c = Class.forName("java.lang.Number");
 		System.out.println(x.getClass());
 		String x2 ="abc123";
 		Class c2 = Class.forName("java.lang.String");
@@ -84,7 +84,13 @@ public class ex1 {
 		
 		System.out.println();
 		
-		System.out.println(j.getClass());
+		ArrayList<Class> cc1 = new ArrayList<Class>();
+		cc1.add(c);
+		cc1.add(new Object().getClass()); //normal string
+		ArrayList<Class> cc2 = new ArrayList<Class>();
+		cc2.add(c);
+		cc2.add(x.getClass()); //array of matrix of string
+		System.out.println(add.moreSpecificClassList(cc1, cc2));
 	}
 
 	
