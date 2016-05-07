@@ -117,6 +117,9 @@ public class ex1 {
 						return "";
 						}});
 				System.out.println(add.getGfm());
+				
+				
+				
 				System.out.println();
 				
 				ArrayList<Class> alc1 = new ArrayList<Class>();
@@ -143,6 +146,32 @@ public class ex1 {
 						System.out.println(add.getAftergfmlist().get(0));
 						System.out.println(add.getAftergfmlist().get(1));
 						System.out.println(add.getAftergfmlist().size());
+						
+						System.out.println();
+					
+						GFMethod gfg123 = new GFMethod(){
+							Object call(Number o1, String o2, String o3) {
+								System.out.printf("LUL");
+								return "";
+								}};
+								
+								GFMethod gfg345 = new GFMethod(){
+									Object call(Number o1, String o2, Object o3) {
+										System.out.printf("LUL");
+										return "";
+										}};
+										
+										GenericFunction eh = new GenericFunction("eh"); //testing the comparator
+										
+										eh.addBeforeMethod(gfg345);
+										eh.addBeforeMethod(gfg123);
+										System.out.println(gfg345);
+										System.out.println(eh.getBeforegfmlist().get(0));
+										System.out.println(eh.getBeforegfmlist().get(1));
+										eh.getBeforegfmlist().sort(new GFMethodComparator());
+										System.out.println("SORTED");
+										System.out.println(eh.getBeforegfmlist().get(0));
+										System.out.println(eh.getBeforegfmlist().get(1));
 				}
 	}
 

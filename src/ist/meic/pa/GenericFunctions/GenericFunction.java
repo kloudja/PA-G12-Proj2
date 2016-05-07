@@ -8,7 +8,7 @@ import java.util.ArrayList;
 //then, Integer in the second wins over Number in the first
 //in case of a perfect tie ex:(Integer, Integer), (Integer, Integer), the newest one replaces the previous and is considered more specific
 
-public class GenericFunction implements Comparable<ArrayList<Class>> {
+public class GenericFunction  {
 
 	GFMethod gfm = new GFMethod();
 	ArrayList<GFMethod> beforegfmlist = new ArrayList<GFMethod>();
@@ -78,7 +78,7 @@ public class GenericFunction implements Comparable<ArrayList<Class>> {
 
 
 	public void addAfterMethod(GFMethod gfm) throws ClassNotFoundException {
-		
+
 		addOrReplaceOnList(aftergfmlist, gfm);
 
 	}
@@ -124,7 +124,7 @@ public class GenericFunction implements Comparable<ArrayList<Class>> {
 		return classesinparametersincall;
 	}
 
-	public ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
+	public static ArrayList<Class> moreSpecificClassList(ArrayList<Class> tocompare,	ArrayList<Class> base) {//Note: tocompare is assumed to be more recent
 		//check which list arguments are more specific from left to right, returns the more specific list, or tocompare if all elements are equally specific
 		//TODO this is untested
 		System.out.println(tocompare.size());
@@ -150,7 +150,7 @@ public class GenericFunction implements Comparable<ArrayList<Class>> {
 
 
 
-	public int moreSpecificClass(Class c1, Class c2) { //returns -1 if c1 and c2 are the same class, 0 if c1 is more specific, and 1 if c2 is more specific
+	public static int moreSpecificClass(Class c1, Class c2) { //returns -1 if c1 and c2 are the same class, 0 if c1 is more specific, and 1 if c2 is more specific
 
 		if(c1 == c2) return -1;
 
@@ -207,18 +207,19 @@ public class GenericFunction implements Comparable<ArrayList<Class>> {
 			gfmlist.add(gfm);
 			return;
 		}
-		boolean foundequivalent = false;
+
 		ArrayList<Class> callparameters = getCallParameters(gfm);
 
 		for(int i = 0; i< gfmlist.size(); i++){
 
 
 			if(getCallParameters(gfmlist.get(i)).equals(callparameters)){
-				foundequivalent = true; 
+
 				gfmlist.set(i, gfm);
 				return;
-			}
+			}	
 			gfmlist.add(gfm);
+			
 		}
 
 
@@ -226,10 +227,6 @@ public class GenericFunction implements Comparable<ArrayList<Class>> {
 
 
 
-	@Override
-	public int compareTo(ArrayList<Class> o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 }
